@@ -24,5 +24,15 @@ pipeline {
                 sh "/opt/maven/bin/mvn org.jacoco:jacoco-maven-plugin:check@jacoco-check"
             }
         }
+		stage("Package") {
+			steps {
+				sh "/opt/maven/bin/mvn package"
+			}
+		}
+		stage("Docker build") {
+			steps {
+				sh "docker build -t calculator ."
+			}
+		}
     }
 }
